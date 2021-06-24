@@ -5,10 +5,12 @@
 }
 
 body {
+  background-color: rgb(20, 14, 14);
   height: 100vh;
   width: 100%;
 }
 .game-box {
+  margin-top: 64px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,11 +21,18 @@ button {
   font-weight: 900;
 }
 .game-title {
+  margin-top: 64px;
   display: flex;
   justify-content: center;
 }
 .game-board {
+  margin-top: 64px;
+  margin-bottom: 64px;
   display: grid;
   grid-template-columns: repeat(3, 120px);
   grid-template-rows: repeat(3, 120px);
+}
+h1 {
+  font-size: 3em;
+  color: firebrick;
 }

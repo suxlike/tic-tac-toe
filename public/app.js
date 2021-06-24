@@ -1,13 +1,17 @@
-const playersModule = (function () {
+const gameModule = (function () {
   /////////CHACHE
   let gameArray = ["", "", "", "", "", "", "", "", ""];
   const gameBoard = document.querySelector(".game-board");
+  let round = 0;
+  let a, b, c, rest;
   /////////
   let buttonClickHandler = function (event) {
-    playX(event);
+    round % 2 === 0 ? playX(event) : playO(event);
+    round++;
+    winnerCheck();
   };
 
-  /////////SET BUTTONS
+  /////////SET BOARD
   for (let i = 0; i < 9; i++) {
     let button = document.createElement("button");
     button.dataset.index = `${i}`;
@@ -18,14 +22,24 @@ const playersModule = (function () {
   const playX = function (event) {
     let index = event.target.dataset.index;
     gameArray.splice(index, 1, "X");
-    console.log(gameArray);
+
     event.target.textContent = "X";
   };
-  const playY = function (event) {
+  const playO = function (event) {
     let index = event.target.dataset.index;
-    gameArray.splice(index, 1, "Y");
+    gameArray.splice(index, 1, "O");
+
+    event.target.textContent = "O";
+  };
+  ////////////////////////////////////////////////////////////////
+
+  const winnerCheck = function () {
+    [a, b, c, ...rest] = gameArray;
     console.log(gameArray);
-    event.target.textContent = "Y";
+    console.log(["X", "X", "X", ...rest]);
+    gameArray == ["X", "X", "X", ...rest]
+      ? console.log("win")
+      : console.log("not yet");
   };
 
   return {};
