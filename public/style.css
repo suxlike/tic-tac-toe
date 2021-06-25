@@ -24,9 +24,16 @@ button {
   margin-top: 64px;
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.game-text {
+  font-size: 2em;
+  margin-top: 32px;
+  margin-bottom: 8px;
 }
 .game-board {
-  margin-top: 64px;
+  margin-top: 32px;
   margin-bottom: 64px;
   display: grid;
   grid-template-columns: repeat(3, 120px);
