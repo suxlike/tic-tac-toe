@@ -3,9 +3,11 @@ const gameModule = (function () {
   let gameArray = ["", "", "", "", "", "", "", "", ""];
   const gameBoard = document.querySelector(".game-board");
   const restartbtn = document.querySelector(".reset-button");
-  let gameText = document.querySelector(".game-text").textContent;
-  console.log(gameText);
-  gameText = "asdsa";
+  // let document.querySelector(".game-text").textContent = document.querySelector(".game-text").textContent;
+
+  // console.log(document.querySelector(".game-text").textContent);
+  // document.querySelector(".game-text").textContent = "asdsa";
+  // document.querySelector(".game-text").textContent = "asd";
   let round = 0;
   const winConditions = [
     [0, 1, 2],
@@ -20,7 +22,6 @@ const gameModule = (function () {
   /////////
   const buttonClickHandler = function (event) {
     round % 2 === 0 ? playX(event) : playO(event);
-    round++;
     winnerCheck();
   };
   const restartHandler = function () {
@@ -33,6 +34,7 @@ const gameModule = (function () {
     for (let i = 0; i < buttons.length; i++) {
       buttons[i].disabled = false;
     }
+    document.querySelector(".game-text").textContent = `turn X`;
   };
 
   /////////SET BOARD
@@ -45,17 +47,19 @@ const gameModule = (function () {
   restartbtn.addEventListener("click", restartHandler);
   ////////////////////////////////////////////////////////////////
   const playX = function (event) {
-    gameText = "turn O";
     let index = event.target.dataset.index;
     if (gameArray[index] === "") {
+      round++;
+      document.querySelector(".game-text").textContent = "turn O";
       gameArray.splice(index, 1, "X");
       event.target.textContent = "X";
     } else return;
   };
   const playO = function (event) {
-    gameText = `turn X`;
     let index = event.target.dataset.index;
     if (gameArray[index] === "") {
+      round++;
+      document.querySelector(".game-text").textContent = `turn X`;
       gameArray.splice(index, 1, "O");
       event.target.textContent = "O";
     } else return;
@@ -77,14 +81,16 @@ const gameModule = (function () {
     if (gameArray.includes("") === false) return draw();
   };
   const gameOver = function () {
-    round % 2 === 0 ? (gameText = "O Won") : (gameText = "X won");
+    round % 2 === 0
+      ? (document.querySelector(".game-text").textContent = "O Won")
+      : (document.querySelector(".game-text").textContent = "X won");
     const buttons = document.querySelectorAll(".game-board button");
     for (let i = 0; i < buttons.length; i++) {
       buttons[i].disabled = true;
     }
   };
   const draw = function () {
-    gameText = "Draw";
+    document.querySelector(".game-text").textContent = "Draw";
   };
   return {};
 })();
