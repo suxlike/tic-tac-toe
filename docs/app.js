@@ -3,6 +3,7 @@ const gameModule = (function () {
   let gameArray = ["", "", "", "", "", "", "", "", ""];
   const gameBoard = document.querySelector(".game-board");
   const restartbtn = document.querySelector(".reset-button");
+  let isGameOver = false;
   // let document.querySelector(".game-text").textContent = document.querySelector(".game-text").textContent;
 
   // console.log(document.querySelector(".game-text").textContent);
@@ -27,6 +28,7 @@ const gameModule = (function () {
   const restartHandler = function () {
     gameArray = ["", "", "", "", "", "", "", "", ""];
     round = 0;
+    isGameOver = false;
     document
       .querySelectorAll(".game-board button")
       .forEach((button) => (button.textContent = ""));
@@ -34,7 +36,7 @@ const gameModule = (function () {
     for (let i = 0; i < buttons.length; i++) {
       buttons[i].disabled = false;
     }
-    document.querySelector(".game-text").textContent = `turn X`;
+    document.querySelector(".game-text").textContent = `Turn X`;
   };
 
   /////////SET BOARD
@@ -50,7 +52,7 @@ const gameModule = (function () {
     let index = event.target.dataset.index;
     if (gameArray[index] === "") {
       round++;
-      document.querySelector(".game-text").textContent = "turn O";
+      document.querySelector(".game-text").textContent = "Turn O";
       gameArray.splice(index, 1, "X");
       event.target.textContent = "X";
     } else return;
@@ -59,7 +61,7 @@ const gameModule = (function () {
     let index = event.target.dataset.index;
     if (gameArray[index] === "") {
       round++;
-      document.querySelector(".game-text").textContent = `turn X`;
+      document.querySelector(".game-text").textContent = `Turn X`;
       gameArray.splice(index, 1, "O");
       event.target.textContent = "O";
     } else return;
@@ -74,11 +76,12 @@ const gameModule = (function () {
       let c = gameArray[win[2]];
       if (a === "" || b === "" || c === "") continue;
       if (a === b && b === c) {
+        isGameOver = true;
         gameOver();
         break;
       }
     }
-    if (gameArray.includes("") === false) return draw();
+    if (gameArray.includes("") === false && isGameOver !== true) return draw();
   };
   const gameOver = function () {
     round % 2 === 0
